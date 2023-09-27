@@ -1,8 +1,14 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Shopping List Page</h1>
-
-<hr>
-
+<nav class="navbar navbar-expand-lg bg-body-tertiary mb-4 d-flex justify-content-between">
+  <div class="container-fluid d-flex justify-content-between">
+    <a class="navbar-brand fw-bold" href="#">Shoppeng</a>
+    <a href="{% url 'main:logout' %}">
+      <button type="button" class="btn btn-danger">
+          Logout
+      </button>
+    </a>
+  </div>
+</nav>
 <h5>Name:</h5>
 <p>{{name}}</p>
 
@@ -10,37 +16,46 @@
 <p>{{class}}</p>
 
 <hr>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Description</th>
-    <th>Date Added</th>
-  </tr>
-
-  {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %} 
+<h1>Daftar Barang</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Description</th>
+      <th scope="col">Date Added</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead> 
+  <tbody>
   {% for product in products %}
   <tr>
     <td>{{product.name}}</td>
     <td>{{product.price}}</td>
     <td>{{product.description}}</td>
     <td>{{product.date_added}}</td>
+    <td>
+      <a href="{% url 'main:edit_product' product.pk %}" class="mx-2">
+          <button type="button" class="btn btn-primary">
+              Edit
+          </button>
+      </a>
+      <a href="{% url 'main:delete_product' product.pk %}">
+        <button type="button" class="btn btn-danger">
+            Delete
+        </button>
+    </a>
+  </td>
   </tr>
   {% endfor %}
+  </tbody>
 </table>
 
 <br />
 
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-
 <a href="{% url 'main:create_product' %}">
-  <button>Add New Product</button>
-</a>
-<a href="{% url 'main:logout' %}">
-  <button>
-      Logout
-  </button>
+  <button type="button" class="btn btn-light">Add New Product</button>
 </a>
 
+<h5>Sesi terakhir login: {{ last_login }}</h5>
 {% endblock content %}

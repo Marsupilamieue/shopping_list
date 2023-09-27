@@ -26,7 +26,11 @@ env = environ.Env()
 SECRET_KEY = 'django-insecure-n6&#z3)$-hdmpbnroz_x26i#-l^s2=rqr9e58fhmk^%87shjo^'
 PRODUCTION = env.bool('PRODUCTION', False)
 
-
+# Static files (CSS, JavaScript, Images)
+# httpsdocs.djangoproject.comen1.9howtostatic-files
+PROJECT_PATH = os.path.abspath(os.path.dirname(__name__))
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'static')
+STATIC_URL = 'static'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
