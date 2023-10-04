@@ -9,7 +9,7 @@
 <hr>
 <h1>Daftar Barang</h1>
 <table class="table table-striped", id="product_table">
-  <thead>
+  <!-- <thead>
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Price</th>
@@ -39,7 +39,7 @@
   </td>
   </tr>
   {% endfor %}
-  </tbody>
+  </tbody> -->
 </table>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -94,6 +94,7 @@
             <th>Price</th>
             <th>Description</th>
             <th>Date Added</th>
+            <th>Action</th>
         </tr>`
         products.forEach((item) => {
             htmlString += `\n<tr>
@@ -101,6 +102,18 @@
             <td>${item.fields.price}</td>
             <td>${item.fields.description}</td>
             <td>${item.fields.date_added}</td>
+            <td>
+                <a href="edit-product/${item.pk}" class="mx-2">
+                    <button type="button" class="btn btn-primary">
+                        Edit
+                    </button>
+                </a>
+                <a href="/delete/${item.pk}">
+                    <button type="button" class="btn btn-danger">
+                        Delete
+                    </button>
+                </a>
+            </td>
         </tr>` 
         })
         
