@@ -103,6 +103,7 @@ def show_main(request):
 
     return render(request, "main.html", context)
 
+@csrf_exempt
 def create_product_flutter(request):
     if request.method == 'POST':
         
