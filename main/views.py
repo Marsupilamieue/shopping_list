@@ -1,6 +1,7 @@
 import datetime
+import json
 from django.shortcuts import render
-from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect, JsonResponse
 from main.forms import ProductForm
 from django.urls import reverse
 from django.http import HttpResponse
@@ -17,6 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from main.models import Product
 
 # Create your views here.
+
 
 def logout_user(request):
     logout(request)
@@ -101,6 +103,24 @@ def show_main(request):
 
     return render(request, "main.html", context)
 
+def create_product_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_product = Product.objects.create(
+            user = request.user,
+            name = data["name"],
+            price = int(data["price"]),
+            description = data["description"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
 def create_product(request):
     form = ProductForm(request.POST or None)
 
